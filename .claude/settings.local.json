@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "PowerShell(sqlcmd -S \".\\\\SQLEXPRESS\" -d testdb -Q \"SELECT KullaniciAdi, Sifre, Gorevi FROM Yoneticiler\" -W)",
-      "Bash(dotnet run *)",
-      "PowerShell(Invoke-WebRequest -Uri \"https://localhost:56769/admin/login\" -SkipCertificateCheck -TimeoutSec 5)"
-    ]
-  }
-}
