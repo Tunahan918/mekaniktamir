@@ -1,0 +1,93 @@
+@model bakimonarim.Data.Urun
+
+@{
+    ViewBag.Title = "Ürün Düzenle";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1><small>Ürün</small> Düzenle</h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index")">Ürün Listesi</a></li>
+            <li>Düzenle</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="box box-warning">
+            <div class="box-header with-border">
+                <h3 class="box-title">Ürün Bilgileri</h3>
+            </div>
+            <div class="box-body">
+                @using (Html.BeginForm("Edit", "Urun", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.UrunId)
+                    @Html.HiddenFor(m => m.vitrinresim)
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        <label>Ürün Adı</label>
+                        @Html.EditorFor(m => m.Adi, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(m => m.Adi, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Kategori</label>
+                        @Html.DropDownList("KategoriId", (SelectList)ViewBag.Kategoriler, "-- Kategori Seçin --", new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Açıklama</label>
+                        @Html.TextAreaFor(m => m.Aciklama, new { @class = "form-control", rows = "4" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ürün Resmi</label>
+                        @if (!string.IsNullOrEmpty(Model.vitrinresim))
+                        {
+                            <div class="mb-2">
+                                <img src="@Model.vitrinresim" style="width:100px; height:100px; object-fit:cover; border-radius:4px;" />
+                                <small class="text-muted d-block">Mevcut resim. Değiştirmek için yeni resim seçin.</small>
+                            </div>
+                        }
+                        <input type="file" name="resim" class="form-control" accept="image/*" />
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Tarih</label>
+                                @Html.EditorFor(m => m.Tarih, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Sıra</label>
+                                @Html.EditorFor(m => m.Sira, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Durum</label>
+                                <div class="checkbox">
+                                    <label>
+                                        @Html.CheckBoxFor(m => m.Onay) Aktif
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-warning">
+                        <i class="fa fa-save"></i> Güncelle
+                    </button>
+                    <a href="@Url.Action("Index")" class="btn btn-default">
+                        <i class="fa fa-arrow-left"></i> Geri Dön
+                    </a>
+                }
+            </div>
+        </div>
+    </section>
+</div>

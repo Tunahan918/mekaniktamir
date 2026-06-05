@@ -1,0 +1,309 @@
+@{
+    ViewData["Title"] = "Randevu Al";
+}
+
+<style>
+    .appear-animation { opacity: 1 !important; visibility: visible !important; }
+
+    /* ===== SİSLİ GECE YEŞİLİ — RANDEVU ===== */
+    #randevu-page { background: #071a0e; }
+
+    #randevu-page .page-header {
+        background: linear-gradient(135deg, #071a0e 0%, #0a2010 100%) !important;
+        border-bottom: 2px solid #d4af37 !important;
+    }
+    #randevu-page .page-header h1 {
+        color: #d4af37 !important;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        text-shadow: 0 0 20px rgba(212,175,55,0.4);
+    }
+    #randevu-page .breadcrumb a { color: #6aaa7a !important; }
+    #randevu-page .breadcrumb .active { color: #d4af37 !important; }
+
+    /* Form bölümü */
+    .randevu-wrapper {
+        background: linear-gradient(160deg, #091508 0%, #0a2010 100%);
+        padding: 60px 0;
+    }
+
+    .randevu-card {
+        background: #0c1f0d;
+        border: 1px solid #0f2e14;
+        border-top: 3px solid #d4af37;
+        padding: 40px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    }
+
+    .randevu-card h3 {
+        color: #d4af37;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-size: 1rem;
+        margin-bottom: 25px;
+        border-bottom: 1px solid #0f2e14;
+        padding-bottom: 15px;
+    }
+
+    .randevu-card .form-label {
+        color: #6aaa7a;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+    }
+
+    .randevu-card .form-control,
+    .randevu-card .form-select {
+        background: #071a0e !important;
+        border: 1px solid #0f2e14 !important;
+        color: #b0d4b8 !important;
+        border-radius: 0 !important;
+        padding: 12px 15px;
+        transition: border-color 0.3s;
+    }
+    .randevu-card .form-control:focus,
+    .randevu-card .form-select:focus {
+        border-color: #d4af37 !important;
+        box-shadow: 0 0 0 2px rgba(212,175,55,0.15) !important;
+        outline: none;
+    }
+    .randevu-card .form-control::placeholder { color: #3a6a45; }
+    .randevu-card .form-select option { background: #0c1f0d; color: #b0d4b8; }
+
+    /* Submit butonu */
+    .randevu-btn {
+        background: transparent;
+        border: 2px solid #d4af37;
+        color: #d4af37;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        padding: 14px 50px;
+        font-weight: 700;
+        transition: all 0.3s;
+        width: 100%;
+        margin-top: 10px;
+    }
+    .randevu-btn:hover {
+        background: #d4af37;
+        color: #071a0e;
+    }
+
+    /* Bilgi kartı */
+    .info-card {
+        background: #0c1f0d;
+        border: 1px solid #0f2e14;
+        border-left: 4px solid #d4af37;
+        padding: 30px;
+        margin-bottom: 20px;
+    }
+    .info-card i { color: #d4af37; font-size: 1.5rem; margin-bottom: 10px; display: block; }
+    .info-card h5 { color: #d4af37; letter-spacing: 1px; text-transform: uppercase; font-size: 0.9rem; }
+    .info-card p, .info-card a { color: #6aaa7a; text-decoration: none; font-size: 0.95rem; margin: 0; }
+    .info-card a:hover { color: #d4af37; }
+
+    /* Başarı mesajı */
+    .randevu-basari {
+        background: #0a2010;
+        border: 1px solid #1a6a25;
+        border-left: 4px solid #d4af37;
+        color: #b0d4b8;
+        padding: 20px 25px;
+        margin-bottom: 25px;
+    }
+    .randevu-basari strong { color: #d4af37; }
+
+    /* Çalışma saatleri */
+    .saat-table td { color: #6aaa7a; padding: 5px 0; font-size: 0.9rem; border: none; background: transparent; }
+    .saat-table td:first-child { color: #b0d4b8; font-weight: 600; padding-right: 20px; }
+</style>
+
+<div role="main" class="main" id="randevu-page">
+
+    <!-- Sayfa Başlığı -->
+    <section class="page-header page-header-modern page-header-lg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 order-2 order-md-1 align-self-center p-static">
+                    <h1 class="font-weight-bold">Randevu Al</h1>
+                </div>
+                <div class="col-md-4 order-1 order-md-2 align-self-center">
+                    <ul class="breadcrumb d-flex justify-content-md-end text-3-5">
+                        <li><a href="/" class="text-decoration-none">ANASAYFA</a></li>
+                        <li class="active">RANDEVU</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Randevu Formu -->
+    <div class="randevu-wrapper">
+        <div class="container">
+            <div class="row">
+
+                <!-- Form -->
+                <div class="col-lg-8 mb-5 mb-lg-0">
+                    <div class="randevu-card">
+
+                        @if (TempData["RandevuBasari"] != null)
+                        {
+                            <div class="randevu-basari">
+                                <strong>✓ Randevunuz Alındı!</strong><br>
+                                @TempData["RandevuBasari"]
+                            </div>
+                        }
+
+                        <form method="post" action="/Home/Randevu">
+                            @Html.AntiForgeryToken()
+
+                            <!-- Kişisel Bilgiler -->
+                            <h3><i class="fas fa-user me-2"></i>Kişisel Bilgiler</h3>
+                            <div class="row mb-3">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Ad Soyad *</label>
+                                    <input type="text" name="adSoyad" class="form-control" placeholder="Adınız Soyadınız" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Telefon *</label>
+                                    <input type="tel" name="telefon" class="form-control" placeholder="05XX XXX XX XX" required>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label">E-posta</label>
+                                    <input type="email" name="email" class="form-control" placeholder="ornek@email.com">
+                                </div>
+                            </div>
+
+                            <!-- Araç Bilgileri -->
+                            <h3><i class="fas fa-car me-2"></i>Araç Bilgileri</h3>
+                            <div class="row mb-3">
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Araç Markası *</label>
+                                    <select name="aracMarka" class="form-select" required>
+                                        <option value="">Seçiniz</option>
+                                        <option>BMW</option>
+                                        <option>Mercedes</option>
+                                        <option>Audi</option>
+                                        <option>Volkswagen</option>
+                                        <option>Toyota</option>
+                                        <option>Honda</option>
+                                        <option>Ford</option>
+                                        <option>Renault</option>
+                                        <option>Peugeot</option>
+                                        <option>Opel</option>
+                                        <option>Fiat</option>
+                                        <option>Hyundai</option>
+                                        <option>Kia</option>
+                                        <option>Diğer</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Model</label>
+                                    <input type="text" name="aracModel" class="form-control" placeholder="örn: Golf, Corolla">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Yıl</label>
+                                    <input type="number" name="aracYil" class="form-control" placeholder="2020" min="1990" max="2025">
+                                </div>
+                            </div>
+
+                            <!-- Hizmet ve Tarih -->
+                            <h3><i class="fas fa-tools me-2"></i>Hizmet ve Tarih</h3>
+                            <div class="row mb-3">
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label">Hizmet Türü *</label>
+                                    <select name="hizmet" class="form-select" required>
+                                        <option value="">Hizmet Seçiniz</option>
+                                        <option>Fren Tamiri</option>
+                                        <option>Motor Kontrolü</option>
+                                        <option>Süspansiyon Tamiri</option>
+                                        <option>Şanzıman Tamiri</option>
+                                        <option>Klima Bakımı</option>
+                                        <option>Yağ Değişimi</option>
+                                        <option>Periyodik Bakım</option>
+                                        <option>Elektrik Sistemi</option>
+                                        <option>Kaporta & Boya</option>
+                                        <option>Lastik Değişimi</option>
+                                        <option>Arıza Tespit</option>
+                                        <option>Diğer</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Randevu Tarihi *</label>
+                                    <input type="date" name="tarih" class="form-control" required min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Randevu Saati *</label>
+                                    <select name="saat" class="form-select" required>
+                                        <option value="">Saat Seçiniz</option>
+                                        <option>09:00</option>
+                                        <option>09:30</option>
+                                        <option>10:00</option>
+                                        <option>10:30</option>
+                                        <option>11:00</option>
+                                        <option>11:30</option>
+                                        <option>12:00</option>
+                                        <option>13:00</option>
+                                        <option>13:30</option>
+                                        <option>14:00</option>
+                                        <option>14:30</option>
+                                        <option>15:00</option>
+                                        <option>15:30</option>
+                                        <option>16:00</option>
+                                        <option>16:30</option>
+                                        <option>17:00</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <label class="form-label">Ek Notlar</label>
+                                    <textarea name="notlar" class="form-control" rows="3" placeholder="Aracınızla ilgili eklemek istediğiniz bilgiler..."></textarea>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="randevu-btn">
+                                <i class="fas fa-calendar-check me-2"></i>RANDEVU OLUŞTUR
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Sağ Bilgi Paneli -->
+                <div class="col-lg-4">
+                    <div class="info-card">
+                        <i class="fas fa-phone"></i>
+                        <h5>Hemen Arayın</h5>
+                        <a href="tel:+902123456789">0212 345 67 89</a><br>
+                        <a href="tel:+902123456790">0212 345 67 90</a>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h5>Adresimiz</h5>
+                        <p>Atatürk Caddesi No:123<br>İstanbul, Türkiye</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-clock"></i>
+                        <h5>Çalışma Saatleri</h5>
+                        <table class="saat-table w-100 mt-2">
+                            <tr><td>Pzt - Cum</td><td>08:30 - 18:00</td></tr>
+                            <tr><td>Cumartesi</td><td>09:00 - 14:00</td></tr>
+                            <tr><td>Pazar</td><td>Kapalı</td></tr>
+                        </table>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-truck"></i>
+                        <h5>7/24 Yol Yardım</h5>
+                        <a href="tel:+908501234567">0850 123 45 67</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

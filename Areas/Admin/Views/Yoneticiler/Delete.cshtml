@@ -1,0 +1,73 @@
+﻿@model bakimonarim.Data.Yonetici
+
+@{
+    ViewBag.Title = "Sil";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            <small>Yönetici</small>
+            Sil
+        </h1>
+        <ol class="breadcrumb">
+            <li>Yönetici Sil</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+
+        <h3>Silmek istediğinizden emin misiniz?</h3>
+        <div>
+            <h4>Yonetici</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.KullaniciAdi)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.KullaniciAdi)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Sifre)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Sifre)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Gorevi)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Gorevi)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.AdiSoyadi)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.AdiSoyadi)
+                </dd>
+
+            </dl>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Sil" class="btn btn-default" /> |
+                    @Html.ActionLink("Geri Dön", "Index")
+                </div>
+            }
+        </div>
+    </section>
+    <!-- /.content -->
+</div>

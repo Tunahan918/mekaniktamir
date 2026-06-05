@@ -1,0 +1,456 @@
+@{
+    ViewData["Title"] = "Hakkımızda";
+}
+
+<style>
+    .appear-animation { opacity: 1 !important; visibility: visible !important; }
+
+    /* ===== CHOPPER METAL VIP — ORGANİK KARANLIK ===== */
+    #hk-page { background: #071a0e; }
+
+    /* Sayfa başlığı — karanlık mor-siyah */
+    #hk-page .page-header {
+        background: linear-gradient(135deg, #071a0e 0%, #0a2010 50%, #091508 100%) !important;
+        border-bottom: 2px solid #c9a84c !important;
+    }
+    #hk-page .page-header h1 {
+        color: #c9a84c !important;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        text-shadow: 0 0 25px rgba(201,168,76,0.5);
+    }
+    #hk-page .breadcrumb a { color: #4a8a5a !important; }
+    #hk-page .breadcrumb .active { color: #c9a84c !important; }
+
+    /* Sisli gece yeşili — her bölüm farklı ton */
+    .hk-dark  { background: linear-gradient(160deg, #071a0e 0%, #0a2010 100%); }
+    .hk-dark2 { background: linear-gradient(160deg, #091508 0%, #0c1f0d 100%); }
+    .hk-dark3 { background: linear-gradient(160deg, #0a2010 0%, #071a0e 100%); }
+    .hk-dark4 { background: linear-gradient(160deg, #0c1f0d 0%, #071508 100%); }
+
+    /* Başlıklar */
+    .hk-title {
+        color: #c9a84c !important;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        text-shadow: 0 0 15px rgba(201,168,76,0.2);
+    }
+    .hk-sub { color: #3a6a45 !important; }
+    .hk-hr { border-color: #c9a84c !important; width: 60px; }
+    .hk-text { color: #b0d4b8 !important; line-height: 2; }
+
+    /* Hakkımızda ana bölüm */
+    .hk-about-link { color: #c9a84c !important; }
+    .hk-about-label { color: #4a8a5a !important; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; }
+
+    /* Stat kutucukları */
+    .stat-box {
+        padding: 50px 20px;
+        border-right: 1px solid #0f2e14;
+        transition: background 0.3s;
+        text-align: center;
+    }
+    .stat-box:hover { background: #0f2a12; }
+    .stat-box:last-child { border-right: none; }
+    .stat-box i { color: #c9a84c; display: block; margin-bottom: 12px; font-size: 2rem; }
+    .stat-box h3 {
+        color: #c9a84c !important;
+        font-size: 3rem !important;
+        font-weight: 800;
+        text-shadow: 0 0 20px rgba(201,168,76,0.35);
+        margin: 0;
+    }
+    .stat-box p { color: #3a6a45 !important; letter-spacing: 2px; text-transform: uppercase; font-size: 0.72rem; margin-top: 8px; }
+
+    /* Neden biz kartları */
+    .neden-card {
+        background: #12121f !important;
+        border: 1px solid #0f2e14 !important;
+        border-top: 3px solid #c9a84c !important;
+        border-radius: 0 !important;
+        box-shadow: 0 4px 25px rgba(0,0,0,0.6) !important;
+        transition: all 0.3s ease;
+        text-align: center;
+        padding: 30px 20px;
+        height: 100%;
+    }
+    .neden-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 40px rgba(201,168,76,0.2) !important;
+        background: #0f2a12 !important;
+    }
+    .neden-card i { color: #c9a84c; font-size: 2rem; margin-bottom: 15px; display: block; }
+    .neden-card h4 { color: #c8e8d0 !important; letter-spacing: 1px; font-size: 1rem; margin-bottom: 10px; }
+    .neden-card p { color: #4a8a5a !important; font-size: 0.9rem; margin: 0; }
+
+    /* Galeri */
+    .galeri-item { position: relative; overflow: hidden; height: 420px; }
+    .galeri-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; filter: grayscale(25%); }
+    .galeri-item:hover img { transform: scale(1.08); filter: grayscale(0%); }
+    .galeri-overlay {
+        position: absolute; inset: 0;
+        background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(201,168,76,0.04) 100%);
+        opacity: 0; transition: opacity 0.4s ease;
+        display: flex; align-items: flex-end; padding: 30px;
+    }
+    .galeri-item:hover .galeri-overlay { opacity: 1; }
+    .galeri-overlay-text { transform: translateY(20px); transition: transform 0.4s ease; }
+    .galeri-item:hover .galeri-overlay-text { transform: translateY(0); }
+    .galeri-overlay-text h4 { color: #c9a84c; font-size: 1.2rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 5px; }
+    .galeri-overlay-text p { color: #b0d4b8; font-size: 0.85rem; margin: 0; }
+    .galeri-card {
+        overflow: hidden;
+        border: 1px solid #0f2e14;
+        border-bottom: 3px solid #c9a84c;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.8);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .galeri-card:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(201,168,76,0.25); }
+
+    /* Misyon Vizyon kartları */
+    .mv-card {
+        background: #0f2a12 !important;
+        border: 1px solid #0f2e14 !important;
+        border-left: 4px solid #c9a84c !important;
+        border-radius: 0 !important;
+        box-shadow: 0 4px 25px rgba(0,0,0,0.6) !important;
+        padding: 30px;
+        height: 100%;
+    }
+    .mv-card i { color: #c9a84c; font-size: 2rem; margin-bottom: 15px; display: block; }
+    .mv-card h3 { color: #c9a84c !important; letter-spacing: 2px; font-size: 1.1rem; text-transform: uppercase; }
+    .mv-card p { color: #6aaa7a !important; line-height: 1.9; }
+
+    /* Yorum kartları */
+    .yorum-card {
+        background: #12121f !important;
+        border: 1px solid #0f2e14 !important;
+        border-radius: 0 !important;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.6) !important;
+        transition: all 0.3s;
+        padding: 30px;
+        height: 100%;
+    }
+    .yorum-card:hover { border-color: #c9a84c !important; box-shadow: 0 10px 35px rgba(201,168,76,0.2) !important; }
+    .yorum-card p { color: #6aaa7a !important; font-style: italic; line-height: 1.8; }
+    .yorum-card strong { color: #c9a84c !important; letter-spacing: 1px; }
+    .yorum-card .fa-star { color: #c9a84c !important; }
+
+    /* CTA bölümü */
+    .hk-cta {
+        background: linear-gradient(135deg, #071a0e 0%, #0a2010 50%, #0c1f0d 100%) !important;
+        border-top: 2px solid #c9a84c;
+        border-bottom: 2px solid #c9a84c;
+    }
+    .hk-cta-label { color: #444 !important; letter-spacing: 5px; font-size: 0.8rem !important; text-transform: uppercase; }
+    .hk-cta-title { color: #c9a84c !important; text-shadow: 0 0 20px rgba(201,168,76,0.3); }
+    .hk-cta-sub { color: #444 !important; }
+    .hk-cta-btn {
+        border: 2px solid #c9a84c !important;
+        color: #c9a84c !important;
+        background: transparent !important;
+        letter-spacing: 2px;
+        border-radius: 0 !important;
+        transition: all 0.3s;
+    }
+    .hk-cta-btn:hover { background: #c9a84c !important; color: #000 !important; }
+    .hk-cta-phone-label { color: #3a6a45 !important; font-size: 0.75rem; letter-spacing: 2px; }
+    .hk-cta-phone a { color: #c9a84c !important; font-size: 1.1rem; font-weight: 700; text-decoration: none; }
+
+    /* Logo bölümü */
+    .hk-logolar { background: linear-gradient(135deg, #091508 0%, #071a0e 100%); border-top: 1px solid #0f2e14; }
+    .hk-logolar img { filter: grayscale(100%) brightness(0.35); transition: all 0.4s; }
+    .hk-logolar img:hover { filter: grayscale(0%) brightness(1); }
+
+    @@media (max-width: 768px) {
+        .galeri-item { height: 260px; }
+        .stat-box { border-right: none; border-bottom: 1px solid #0f2e14; }
+    }
+</style>
+
+<div role="main" class="main" id="hk-page">
+
+    <!-- Sayfa Başlığı -->
+    <section class="page-header page-header-modern page-header-lg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 order-2 order-md-1 align-self-center p-static">
+                    <h1 class="font-weight-bold">Hakkımızda</h1>
+                </div>
+                <div class="col-md-4 order-1 order-md-2 align-self-center">
+                    <ul class="breadcrumb d-flex justify-content-md-end text-3-5">
+                        <li><a href="/" class="text-decoration-none">ANASAYFA</a></li>
+                        <li class="active">HAKKIMIZDA</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hakkımızda Ana — gece yeşili siyah -->
+    <div class="hk-dark2 py-5">
+        <div class="container py-4">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <h2 class="hk-title font-weight-bold mb-0">Yirmi Yıllık Üstün Deneyim</h2>
+                    <hr class="hk-hr mt-3 mb-3">
+                    <p class="hk-text mb-4">
+                        2004 yılından bu yana İstanbul'da hizmet veren MakinaTeknik olarak, 20 yılı aşkın tecrübemizle araçlarınıza en iyi bakımı sunuyoruz. Uzman kadromuz ve modern teknik donanımımızla her marka ve model araca kaliteli servis hizmeti veriyoruz.
+                    </p>
+                    <p class="hk-text mb-4">
+                        Müşteri memnuniyetini her şeyin önünde tutan anlayışımızla, aracınızı en kısa sürede ve garantili olarak teslim ediyoruz. Periyodik bakımdan büyük onarımlara kadar tüm işlemlerinizde yanınızdayız.
+                    </p>
+                    <div class="d-flex align-items-center mt-4">
+                        <i class="icons icon-phone mr-2" style="color:#c9a84c; font-size:1.5rem;"></i>
+                        <div class="ms-3">
+                            <span class="hk-about-label d-block">BİZİ ARAYIN</span>
+                            <a href="tel:+902123456789" class="hk-about-link font-weight-bold text-4-5 text-decoration-none">0212 345 67 89</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="/img/demos/auto-services/generic-1.png" class="img-fluid" alt="MakinaTeknik" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sayılarla Biz — gece mavisi mor -->
+    <div class="hk-dark" style="border-top:1px solid #0f2e14; border-bottom:1px solid #0f2e14;">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 col-lg-3">
+                    <div class="stat-box">
+                        <i class="fas fa-tools"></i>
+                        <h3>20+</h3>
+                        <p>Yıllık Deneyim</p>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="stat-box">
+                        <i class="fas fa-smile"></i>
+                        <h3>5000+</h3>
+                        <p>Mutlu Müşteri</p>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="stat-box">
+                        <i class="fas fa-user-tie"></i>
+                        <h3>50+</h3>
+                        <p>Uzman Teknisyen</p>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="stat-box">
+                        <i class="fas fa-truck"></i>
+                        <h3>7/24</h3>
+                        <p>Yol Yardım</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Neden Biz — mor yeşil -->
+    <div class="hk-dark3 py-5">
+        <div class="container py-4">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8 text-center">
+                    <h2 class="hk-title font-weight-bold">Neden MakinaTeknik?</h2>
+                    <hr class="hk-hr mt-3 mb-3 mx-auto">
+                    <p class="hk-sub">Binlerce müşterimizin bize güvenmesinin ardındaki sebepler</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="neden-card">
+                        <i class="fas fa-certificate"></i>
+                        <h4>Sertifikalı Teknisyenler</h4>
+                        <p>Tüm teknisyenlerimiz uluslararası sertifikalı, sürekli eğitim alıyor.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="neden-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h4>Garantili Hizmet</h4>
+                        <p>Tüm işçilik ve parçalar için 1 yıl garanti sunuyoruz.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="neden-card">
+                        <i class="fas fa-tags"></i>
+                        <h4>Şeffaf Fiyatlandırma</h4>
+                        <p>Gizli ücret yok. İşlem öncesi net fiyat bilgisi veriyoruz.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="neden-card">
+                        <i class="fas fa-clock"></i>
+                        <h4>Hızlı Teslimat</h4>
+                        <p>Söz verdiğimiz tarihte, söz verdiğimiz kalitede teslim.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="neden-card">
+                        <i class="fas fa-cogs"></i>
+                        <h4>Orijinal Yedek Parça</h4>
+                        <p>Yalnızca orijinal ve sertifikalı parça kullanıyoruz.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="neden-card">
+                        <i class="fas fa-headset"></i>
+                        <h4>7/24 Destek</h4>
+                        <p>Yol yardım ve acil destek hizmetimiz kesintisiz çalışıyor.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Galeri — gece yeşili siyah -->
+    <div class="hk-dark2 py-5">
+        <div class="container py-4">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8 text-center">
+                    <h2 class="hk-title font-weight-bold">Galerimiz</h2>
+                    <hr class="hk-hr mt-3 mb-3 mx-auto">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="galeri-card">
+                        <div class="galeri-item">
+                            <img src="/img/home/haryleymotor.webp" alt="Motosiklet 1" />
+                            <div class="galeri-overlay">
+                                <div class="galeri-overlay-text">
+                                    <h4>Tutkuyla Bakım</h4>
+                                    <p>Her araç bizim için özeldir, ona göre hizmet veririz.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="galeri-card">
+                        <div class="galeri-item">
+                            <img src="/img/home/harleymoto2.webp" alt="Motosiklet 2" />
+                            <div class="galeri-overlay">
+                                <div class="galeri-overlay-text">
+                                    <h4>Özgürlüğü Koruyoruz</h4>
+                                    <p>Aracınız yolda kalsın, siz hayatınıza devam edin.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Misyon Vizyon — mavi derin mor -->
+    <div class="hk-dark4 py-5">
+        <div class="container py-4">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8 text-center">
+                    <h2 class="hk-title font-weight-bold">Misyon & Vizyon</h2>
+                    <hr class="hk-hr mt-3 mb-3 mx-auto">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="mv-card">
+                        <i class="fas fa-bullseye"></i>
+                        <h3>Misyonumuz</h3>
+                        <p>Müşterilerimizin araçlarını güvenle emanet edebileceği, dürüst ve şeffaf fiyatlandırmayla yüksek kaliteli servis hizmeti sunmak. Her müşteriyi aile bireyi gibi görerek uzun soluklu ilişkiler kurmak.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="mv-card">
+                        <i class="fas fa-eye"></i>
+                        <h3>Vizyonumuz</h3>
+                        <p>Türkiye'nin en güvenilir oto servis zinciri olmak. Teknolojik yenilikleri takip ederek, sertifikalı teknisyenler ve modern ekipmanlarla sektörde öncü olmaya devam etmek.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Müşteri Yorumları — yeşil siyah -->
+    <div class="hk-dark3 py-5">
+        <div class="container py-4">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8 text-center">
+                    <h2 class="hk-title font-weight-bold">Müşterilerimiz Ne Diyor?</h2>
+                    <hr class="hk-hr mt-3 mb-3 mx-auto">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="yorum-card">
+                        <div class="mb-3">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p>"Aracımı tamire getirdiğimde çok memnun kaldım. Hem işi hızlı hem de fiyatları gayet makul. Kesinlikle tavsiye ederim."</p>
+                        <strong>— Ahmet Yılmaz</strong>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="yorum-card">
+                        <div class="mb-3">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p>"Yıllardır bu servisi kullanıyorum. Dürüst ve güvenilir bir ekip. Aracımı her zaman güvenle bırakıyorum."</p>
+                        <strong>— Mehmet Demir</strong>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="yorum-card">
+                        <div class="mb-3">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p>"Motor arızası çok kötü bir zamanda çıktı ama MakinaTeknik sayesinde aynı gün yola devam ettim. Teşekkürler!"</p>
+                        <strong>— Zeynep Kaya</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="hk-cta py-5">
+        <div class="container py-3">
+            <div class="row align-items-center">
+                <div class="col-lg-7 text-center text-lg-start mb-4 mb-lg-0">
+                    <h2 class="hk-cta-label mb-2">DÜRÜST VE GÜVENİLİR SERVİS Mİ ARIYORSUNUZ?</h2>
+                    <h3 class="hk-cta-title font-weight-bold" style="font-size:2rem;">İstanbul'un En İyi Oto Servis Merkezi</h3>
+                    <p class="hk-cta-sub mb-0">Online Formumuzla Bugün Randevu Alın</p>
+                </div>
+                <div class="col-lg-5">
+                    <div class="d-flex flex-column flex-lg-row align-items-center justify-content-between gap-3">
+                        <div>
+                            <span class="hk-cta-phone-label d-block">BİZİ ARAYIN</span>
+                            <div class="hk-cta-phone"><a href="tel:+902123456789">0212 345 67 89</a></div>
+                        </div>
+                        <a href="/Home/Iletisim" class="hk-cta-btn btn btn-px-5 btn-py-3 font-weight-bold">RANDEVU AL</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Marka Logoları -->
+    <div class="hk-logolar py-4">
+        <div class="container">
+            <div class="row align-items-center text-center py-4">
+                <div class="col-sm-4 col-lg-2 mb-4 mb-lg-0"><img src="/img/logos/logo-8.png" alt class="img-fluid" style="max-width:90px;"></div>
+                <div class="col-sm-4 col-lg-2 mb-4 mb-lg-0"><img src="/img/logos/logo-9.png" alt class="img-fluid" style="max-width:130px;"></div>
+                <div class="col-sm-4 col-lg-2 mb-4 mb-lg-0"><img src="/img/logos/logo-10.png" alt class="img-fluid" style="max-width:130px;"></div>
+                <div class="col-sm-4 col-lg-2 mb-4 mb-sm-0"><img src="/img/logos/logo-11.png" alt class="img-fluid" style="max-width:130px;"></div>
+                <div class="col-sm-4 col-lg-2 mb-4 mb-sm-0"><img src="/img/logos/logo-12.png" alt class="img-fluid" style="max-width:100px;"></div>
+                <div class="col-sm-4 col-lg-2"><img src="/img/logos/logo-13.png" alt class="img-fluid" style="max-width:100px;"></div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,65 @@
+@model bakimonarim.Data.Urun
+
+@{
+    ViewBag.Title = "Ürün Sil";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1><small>Ürün</small> Sil</h1>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Action("Index")">Ürün Listesi</a></li>
+            <li>Sil</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="box box-danger">
+            <div class="box-header with-border">
+                <h3 class="box-title">Silmek istediğinize emin misiniz?</h3>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        @if (!string.IsNullOrEmpty(Model.vitrinresim))
+                        {
+                            <img src="@Model.vitrinresim" style="width:100px; height:100px; object-fit:cover; border-radius:4px;" />
+                        }
+                    </div>
+                    <div class="col-md-10">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Ürün Adı</th>
+                                <td>@Model.Adi</td>
+                            </tr>
+                            <tr>
+                                <th>Kategori</th>
+                                <td>@Model.Kategori?.Ad</td>
+                            </tr>
+                            <tr>
+                                <th>Tarih</th>
+                                <td>@Model.Tarih.ToString("dd.MM.yyyy")</td>
+                            </tr>
+                            <tr>
+                                <th>Durum</th>
+                                <td>@(Model.Onay ? "Aktif" : "Pasif")</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fa fa-trash"></i> Evet, Sil
+                    </button>
+                    <a href="@Url.Action("Index")" class="btn btn-default">
+                        <i class="fa fa-times"></i> Vazgeç
+                    </a>
+                }
+            </div>
+        </div>
+    </section>
+</div>

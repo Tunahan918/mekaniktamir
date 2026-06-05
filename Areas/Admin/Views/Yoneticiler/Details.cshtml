@@ -1,0 +1,66 @@
+﻿@model bakimonarim.Data.Yonetici
+
+@{
+    ViewBag.Title = "Detay";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            <small>Yönetici</small>
+            Detay
+        </h1>
+        <ol class="breadcrumb">
+            <li>Yönetici Detay</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+
+        <div>
+            <h4>Yonetici</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.KullaniciAdi)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.KullaniciAdi)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Sifre)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Sifre)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Gorevi)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Gorevi)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.AdiSoyadi)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.AdiSoyadi)
+                </dd>
+
+            </dl>
+        </div>
+        <p>
+            @Html.ActionLink("Düzenle", "Edit", new { id = Model.YoneticiId }) |
+            @Html.ActionLink("Geri Dön", "Index")
+        </p>
+    </section>
+    <!-- /.content -->
+</div>

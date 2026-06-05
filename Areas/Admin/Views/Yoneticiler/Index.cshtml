@@ -1,0 +1,67 @@
+﻿@model IEnumerable<bakimonarim.Data.Yonetici>
+
+@{
+    ViewBag.Title = "Yönetici Listele";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            <small>Yönetici</small>
+            Listesi
+        </h1>
+        <ol class="breadcrumb">
+            <li>Yönetici Listesi</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+
+        <p>
+            @Html.ActionLink("Yeni Kayıt", "Create")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.KullaniciAdi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sifre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Gorevi)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AdiSoyadi)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.KullaniciAdi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sifre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Gorevi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AdiSoyadi)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Düzenle", "Edit", new { id = item.YoneticiId }) |
+                        @Html.ActionLink("Detay", "Details", new { id = item.YoneticiId }) |
+                        @Html.ActionLink("Sil", "Delete", new { id = item.YoneticiId })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </section>
+    <!-- /.content -->
+</div>

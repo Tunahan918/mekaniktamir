@@ -1,0 +1,117 @@
+@{
+    ViewData["Title"] = "İletişim";
+}
+	<div role="main" class="main">
+
+				<section class="page-header page-header-modern bg-color-grey page-header-lg">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-8 order-2 order-md-1 align-self-center p-static">
+		<h1 class="text-color-dark font-weight-bold">İletişim</h1>
+							</div>
+							<div class="col-md-4 order-1 order-md-2 align-self-center">
+								<ul class="breadcrumb d-flex justify-content-md-end text-3-5">
+									<li><a href="/" class="text-color-default text-color-hover-primary text-decoration-none">ANASAYFA</a></li>
+									<li class="active">BİZE ULAŞIN</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<div class="container py-4 my-5">
+					<div class="row align-items-center">
+						<div class="col-lg-5 col-xl-4 offset-xl-1 mb-5 mb-lg-0">
+							<div class="overflow-hidden">
+								<h2 class="text-color-dark font-weight-bold line-height-3 text-5-5 mb-0 appear-animation" data-appear-animation="maskUp" data-appear-animation-delay="250">Atatürk Caddesi No:123, İstanbul</h2>
+							</div>
+							<div class="overflow-hidden">
+								<a href="#get-direction" data-hash data-hash-offset="0" data-hash-offset-lg="100" class="d-inline-block custom-text-underline-1 font-weight-bold border-color-primary text-decoration-none text-3-5 appear-animation" data-appear-animation="maskUp" data-appear-animation-delay="500">YOL TARİFİ AL</a>
+							</div>
+							<ul class="list list-unstyled text-color-dark font-weight-bold text-4 py-2 my-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="750">
+								<li class="d-flex align-items-center mb-2">
+									<i class="icons icon-envelope text-color-dark me-2"></i>
+									Email: <a href="mailto:porto@domain.com" class="text-color-dark text-color-hover-primary text-decoration-none ms-1">porto@domain.com</a>
+								</li>
+								<li class="d-flex align-items-center mb-0">
+									<i class="icons icon-phone text-color-dark me-2"></i>
+									Phone: <a href="tel:1234567890" class="text-color-dark text-color-hover-primary text-decoration-none ms-1">0212 345 67 89</a>
+								</li>
+							</ul>
+							<p class="mb-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1000">Araç tamir ve bakım ihtiyaçlarınızda size yardımcı olmak için buradayız. Bizi ziyaret edin, arayın veya e-posta gönderin. Mesai saatleri içinde en kısa sürede geri döneceğiz.</p>
+						</div>
+						<div class="col-lg-6 col-xl-5 offset-lg-1 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1250">
+							@if (TempData["Basari"] != null)
+							{
+								<div class="alert alert-success mb-3">
+									<strong>Başarılı!</strong> @TempData["Basari"]
+								</div>
+							}
+							<form method="post" action="/Home/Iletisim">
+								@Html.AntiForgeryToken()
+								<div class="row row-gutter-sm">
+									<div class="form-group col mb-3">
+										<input type="text" class="form-control" name="adSoyad" required placeholder="Ad Soyad" maxlength="100">
+									</div>
+								</div>
+								<div class="row row-gutter-sm">
+									<div class="form-group col mb-3">
+										<input type="email" class="form-control" name="email" required placeholder="E-posta Adresi" maxlength="100">
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col mb-3">
+										<textarea rows="4" class="form-control" name="mesaj" required placeholder="Mesajınız" maxlength="5000"></textarea>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col mb-0">
+										<button type="submit" class="btn btn-primary text-color-light btn-modern font-weight-bold custom-btn-border-radius text-3 px-5 py-3">
+											GÖNDER
+											<svg class="ms-2" version="1.1" viewBox="0 0 15.698 8.706" width="17" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+												<polygon stroke="#FFF" stroke-width="0.1" fill="#FFF" points="11.354,0 10.646,0.706 13.786,3.853 0,3.853 0,4.853 13.786,4.853 10.646,8 11.354,8.706 15.698,4.353 "/>
+											</svg>
+										</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+				<!-- Google Maps - Go to the bottom of the page to change settings and map location. -->
+				<div class="position-relative appear-animation" data-appear-animation="fadeInUpShorterPlus" data-appear-animation-delay="750">
+					<div class="custom-directions-panel position-absolute top-0 left-0 w-100pct w-md-50pct w-lg-25pct h-100 mh-100 overflow-auto z-index-1"></div>
+					<div id="googlemaps" class="google-map m-0" style="min-height: 500px;"></div>
+				</div>				
+
+				<section class="section bg-transparent position-relative border-0 z-index-1 m-0 p-0">
+					<div class="container py-4">
+						<div class="row align-items-center text-center py-5">
+							<div class="col-sm-4 col-lg-2 mb-5 mb-lg-0">
+								<img src="/img/logos/logo-8.png" alt class="img-fluid" style="max-width: 90px;" />
+							</div>
+							<div class="col-sm-4 col-lg-2 mb-5 mb-lg-0">
+								<img src="/img/logos/logo-9.png" alt class="img-fluid" style="max-width: 140px;" />
+							</div>
+							<div class="col-sm-4 col-lg-2 mb-5 mb-lg-0">
+								<img src="/img/logos/logo-10.png" alt class="img-fluid" style="max-width: 140px;" />
+							</div>
+							<div class="col-sm-4 col-lg-2 mb-5 mb-sm-0">
+								<img src="/img/logos/logo-11.png" alt class="img-fluid" style="max-width: 140px;" />
+							</div>
+							<div class="col-sm-4 col-lg-2 mb-5 mb-sm-0">
+								<img src="/img/logos/logo-12.png" alt class="img-fluid" style="max-width: 100px;" />
+							</div>
+							<div class="col-sm-4 col-lg-2">
+								<img src="/img/logos/logo-13.png" alt class="img-fluid" style="max-width: 100px;" />
+							</div>
+						</div>
+					</div>
+					<svg class="custom-svg-3" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 193 495">
+						<path class="svg-fill-color-primary" d="M193,25.73L18.95,247.93c-13.62,17.39-10.57,42.54,6.82,56.16L193,435.09V25.73z"/>
+						<path fill="none" stroke="#FFF" stroke-width="1.5" stroke-miterlimit="10" d="M196,53.54L22.68,297.08c-12.81,18-8.6,42.98,9.4,55.79L196,469.53V53.54z"/>
+					</svg>
+				</section>
+
+			</div> 

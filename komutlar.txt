@@ -1,0 +1,14 @@
+migration komut install
+dotnet tool install --global dotnet-ef
+-------------------------------
+dotnet ef migrations add m1
+--------------------------------
+dotnet ef database update 
+----------------------------
+TASKİLL
+taskkill /IM dotnet.exe /f
+-------------------------------
+VS 2022 d kodlar
+add-migration m1
+update-database
+-------------------------------
